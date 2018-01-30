@@ -1,21 +1,33 @@
 #include "FBullCowGame.h"
 
+
+FBullCowGame::FBullCowGame()
+{
+	Reset();
+
+}
+
+
 void FBullCowGame::Reset()
 {
+	constexpr int MAX_TRIES = 8;
+	constexpr int MY_CURRENT_TRY = 1;
+	MyMaxTries = MAX_TRIES;
+	MyCurrentTry = MY_CURRENT_TRY;
 	return;
 }
 
-int FBullCowGame::GetMaxTries()
+int FBullCowGame::GetMaxTries() const
 {
-	return 0;
+	return MyMaxTries;
 }
 
-int FBullCowGame::GetCurrentTry()
+int FBullCowGame::GetCurrentTry() const
 {
-	return 0;
+	return MyCurrentTry;
 }
 
-bool FBullCowGame::IsGameWon()
+bool FBullCowGame::IsGameWon() const
 {
 	return false;
 }
