@@ -2,15 +2,18 @@
 #include <string>
 #include "FBullCowGame.h"
 
+using FText = std::string;
+using int32 = int;
+
 void PrintIntro();
 void PlayGame();
-std::string GetGuess();
+FText GetGuess();
 bool AskToPlayAgain();
 
 FBullCowGame BCGame;
 
 
-int main() 
+int32 main() 
 {
 	bool bPlayAgain = false;
 	do
@@ -26,30 +29,31 @@ int main()
 void PlayGame()
 {
 	BCGame.Reset();
-	int MaxTries = BCGame.GetMaxTries();
+	int32 MaxTries = BCGame.GetMaxTries();
 	std::cout << MaxTries << std::endl;
 
-	for (int i = 0; i < MaxTries; i++)
+	for (int32 i = 0; i < MaxTries; i++)
 	{
-		std::string Guess = GetGuess();
-		std::cout << "\nYou guessed: " << Guess << std::endl;
+		FText Guess = GetGuess();
+		FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+		std::cout << "Bulls = " << BullCowCount.Bulls;
+		std::cout << ". Cows = " << BullCowCount.Cows;
 	}
 	return;
 }
 
 void PrintIntro()
 {
-	constexpr int WORD_LENGTH = 5;
 	std::cout << "Welcome to Bulls and Cows" << std::endl;
-	std::cout << "Can you gues the " << WORD_LENGTH;
+	std::cout << "Can you gues the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?" << std::endl;
 	return;
 }
 
-std::string GetGuess()
+FText GetGuess()
 {
 	std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
-	std::string Guess = "";
+	FText Guess = "";
 	std::getline(std::cin, Guess);
 	return Guess;
 }
@@ -57,7 +61,7 @@ std::string GetGuess()
 bool AskToPlayAgain()
 {
 	std::cout << "Do you want to play again? (y/n) ";
-	std::string Response = "";
+	FText Response = "";
 	std::getline(std::cin, Response);
 	return (Response[0] == 'y' || Response[0] == 'Y');
 }
